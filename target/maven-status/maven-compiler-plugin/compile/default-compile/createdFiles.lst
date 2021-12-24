@@ -1,0 +1,10 @@
+com\solvd\socialNetwork\utils\ConnectionPool.class
+com\solvd\socialNetwork\model\User.class
+com\solvd\socialNetwork\service\impl\UserServiceImpl.class
+com\solvd\socialNetwork\utils\Connection.class
+com\solvd\socialNetwork\dao\mySQLImpl\UserDAOImpl.class
+com\solvd\socialNetwork\dao\interfaces\IUserDAO.class
+com\solvd\socialNetwork\dao\interfaces\IEntityDAO.class
+com\solvd\socialNetwork\Main.class
+com\solvd\socialNetwork\dao\interfaces\AbstractDAO.class
+com\solvd\socialNetwork\service\UserService.class
