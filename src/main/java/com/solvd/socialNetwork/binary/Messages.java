@@ -7,6 +7,15 @@ public class Messages {
     private String msgContent;
     private Date dateTime;
 
+    public Messages() {
+    }
+
+    public Messages(long id, String msgContent, Date dateTime) {
+        this.id = id;
+        this.msgContent = msgContent;
+        this.dateTime = dateTime;
+    }
+
     public long getId() {
         return id;
     }

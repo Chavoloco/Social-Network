@@ -4,6 +4,14 @@ public class MessagesPool {
     private long messagesId;
     private  long user_id;
 
+    public MessagesPool() {
+    }
+
+    public MessagesPool(long messagesId, long user_id) {
+        this.messagesId = messagesId;
+        this.user_id = user_id;
+    }
+
     public long getMessagesId() {
         return messagesId;
     }
