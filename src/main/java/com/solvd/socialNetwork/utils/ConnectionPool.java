@@ -1,7 +1,10 @@
 package com.solvd.socialNetwork.utils;
 
 
-import java.lang.reflect.InvocationTargetException;
+import com.solvd.socialNetwork.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,7 +14,7 @@ import java.sql.Connection;
 
 
 public class ConnectionPool {
-    //private static final Logger log = LogManager.getLogger(Main.class);
+    private static final Logger log = LogManager.getLogger(Main.class);
 
     private static ConnectionPool connectionPool;
     private final String DB = "database";
@@ -23,13 +26,7 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getEnclosingConstructor().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -43,42 +40,49 @@ public class ConnectionPool {
         return connectionPool;
     }
 
-    //  public synchronized Connection getConnection() {
-    //      if (connections.isEmpty()) {
-    //          return connections.stream().findFirst().get();
-    //      } else if (contAmount == MAX_CONNECTIONS) {
-    //          for (int i = 0; i < 10; i++) {
-    //              try {
-    //                  Thread.sleep(1000);
-    //                  if (!connections.isEmpty()) {
-    //                      return connections.stream().findFirst().get();
-    //                  }
-    //              } catch (InterruptedException e) {
-    //                  System.out.println("Thread error" + e.getStackTrace());
-    //              }
-    //          }
-    //          throw new RuntimeException("");
-    //      } else {
-    //          contAmount++;
-    //          return new Connection();
-    //      }
-    //  }
-
-    public Connection getConnection() {
+    public synchronized Connection getConnection() throws SQLException {
         Connection conn = null;
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/social_network" + "user=root&password=admin");
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (connections.isEmpty()) {
+                try {
+                    conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/social_network" + "user=root&password=admin");
+                    connections.add(conn);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            return connections.stream().findFirst().get();
+        } else if (contAmount == MAX_CONNECTIONS) {
+            for (int i = 0; i < MAX_CONNECTIONS; i++) {
+                try {
+                    Thread.sleep(1000);
+                    if (!connections.isEmpty()) {
+                        return connections.stream().findFirst().get();
+                    }
+                } catch (InterruptedException e) {
+                    log.error("Thread error" + e.getStackTrace());
+                }
+            }
+            throw new RuntimeException("");
+        } else {
+            contAmount++;
+            return conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/social_network" + "user=root&password=admin");
         }
-        return conn;
     }
+
+    // public Connection getConnection() {
+    //     Connection conn = null;
+    //   try {
+    //    conn = DriverManager.getConnection("jdbc:mysql://localhost/social_network" + "user=root&password=admin");
+    //    } catch (SQLException e) {
+    //   e.printStackTrace();
+    //    }
+    //    return conn;
+    //}
 
     public synchronized void returnConnection(Connection connection) {
         connections.add(connection);
     }
 
-    public void getBack(Connection connection){
+    public void getBack(Connection connection) {
         connections.add(connection);
     }
 }

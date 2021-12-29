@@ -5,11 +5,12 @@ import com.solvd.socialNetwork.utils.ConnectionPool;
 
 import javax.sql.ConnectionPoolDataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public abstract class AbstractDAO {
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    public Connection getCon() {
+    public Connection getCon() throws SQLException {
         return connectionPool.getConnection();
     }
 

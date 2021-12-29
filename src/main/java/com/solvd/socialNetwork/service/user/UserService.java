@@ -1,4 +1,4 @@
-package com.solvd.socialNetwork.service;
+package com.solvd.socialNetwork.service.user;
 
 import com.solvd.socialNetwork.binary.User;
 

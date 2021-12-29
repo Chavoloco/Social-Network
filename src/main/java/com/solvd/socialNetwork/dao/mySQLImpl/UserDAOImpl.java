@@ -1,12 +1,16 @@
 package com.solvd.socialNetwork.dao.mySQLImpl;
 
+import com.solvd.socialNetwork.binary.Friends;
+import com.solvd.socialNetwork.binary.Profile;
 import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.dao.interfaces.AbstractDAO;
 import com.solvd.socialNetwork.dao.interfaces.IUserDAO;
+import com.solvd.socialNetwork.utils.collections.MyLinkedList;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserDAOImpl extends AbstractDAO implements IUserDAO {
@@ -14,10 +18,15 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
     private final static String GET_USER_BY_USERNAME = "SELECT * FROM user WHERE username=?";
     private final static String GET_USER_ALL = "SELECT * FROM user";
     private final static String UPDATE_USER_BY_ID = "UPDATE USER SET user_name WHERE id=?";
+    private final static String INNER_JOIN_BY_ID = "SELECT u.id, p.profile_details FROM user u\n" +
+            "INNER JOIN profile p ON u.profile_id = p.id\n" +
+            "WHERE u.id=?";
+    private final static String INNER_JOIN_ALL = "SELECT u.id, p.profile_details FROM user u\n" +
+            "INNER JOIN profile p ON u.profile_id = p.id\n";
 
     @Override
     public void save(User user) {
-        throw new RuntimeException("Operation is not supported");
+        throw new UnsupportedOperationException("Operation is not supported");
     }
 
     @Override
@@ -32,7 +41,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
             ps = connection.prepareStatement(GET_USER_ALL);
             //ps.setArray(1, (Array) userList);
             rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 user = new User();
                 user.setId(rs.getLong("id"));
                 user.setUserName(rs.getString("username"));
@@ -56,7 +65,8 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
     }
 
     @Override
-    public User getForUserName(String username) {
+    public List<User> getForUserName(String username) {
+        List<User> userList = new ArrayList<>();
         User user = null;
         Connection connection = null;
         PreparedStatement ps = null;
@@ -66,11 +76,12 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
             ps = connection.prepareStatement(GET_USER_BY_USERNAME);
             ps.setString(1, username);
             rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 user = new User();
                 user.setId(rs.getLong("id"));
                 user.setUserName(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                userList.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,7 +96,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
                 e.printStackTrace();
             }
         }
-        return user;
+        return userList;
     }
 
     @Override
@@ -99,13 +110,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
             ps = connection.prepareStatement(UPDATE_USER_BY_ID);
             ps.setLong(1, id);
             ps.setString(1, userName);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                user = new User();
-                user.setId(rs.getLong("id"));
-                user.setUserName(rs.getString("username"));
-                user.setPassword(rs.getString("password"));
-            }
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -156,6 +161,94 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
 
     @Override
     public void delete(User u) {
-        throw new RuntimeException("Operation is not supported");
+        throw new UnsupportedOperationException("Operation is not supported");
+    }
+
+    @Override
+    public MyLinkedList<Profile> getProfileByUserId(long id) {
+        MyLinkedList<Profile> profileList = new MyLinkedList<>();
+        User user = null;
+        Profile profile = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INNER_JOIN_BY_ID);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                profile = new Profile();
+                user.setId(rs.getLong("id"));
+                profile.setId(rs.getLong("id"));
+                profile.setProfileDetails(rs.getString("profile_datails"));
+                profileList.add(user.getId(), profile);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return profileList;
+    }
+
+    @Override
+    public MyLinkedList<Friends> getFriendsByUserId(long id) {
+        throw new UnsupportedOperationException("Operation is not supported");
+    }
+
+    @Override
+    public MyLinkedList<Profile> getAllProfileByUser() {
+        MyLinkedList<Profile> profileList = new MyLinkedList<>();
+        User user = null;
+        Profile profile = null;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INNER_JOIN_ALL);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new User();
+                profile = new Profile();
+                user.setId(rs.getLong("id"));
+                profile.setId(rs.getLong("id"));
+                profile.setProfileDetails(rs.getString("profile_details"));
+                profileList.add(user.getId(), profile);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return profileList;
+    }
+
+    @Override
+    public MyLinkedList<Friends> getAllFriendsByUser() {
+        throw new UnsupportedOperationException("Operation not supported");
+    }
+
+    @Override
+    public void updatePassword(Integer id, String password) {
+        throw new UnsupportedOperationException("Operation not supported");
     }
 }
