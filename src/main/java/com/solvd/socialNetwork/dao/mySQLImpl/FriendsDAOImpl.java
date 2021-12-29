@@ -1,7 +1,6 @@
 package com.solvd.socialNetwork.dao.mySQLImpl;
 
 import com.solvd.socialNetwork.binary.Friends;
-import com.solvd.socialNetwork.binary.Profile;
 import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.dao.interfaces.AbstractDAO;
 import com.solvd.socialNetwork.dao.interfaces.IFriendsDAO;
@@ -14,11 +13,35 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class FriendsDAOImpl extends AbstractDAO implements IFriendsDAO {
-    private final static String GET_USER_BY_ID = "SELECT * FROM user WHERE id=?";
+    private final static String GET_FRIEND_BY_ID = "SELECT * FROM user WHERE id=?";
+    private final static String INSERT_FRIEND = "INSERT INTO friends(name, last_name, basic_info_id) VALUES(?,?,?)";
 
     @Override
-    public void save(Friends o) {
-        throw new UnsupportedOperationException("Operation is not supported");
+    public void save(Friends friend) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INSERT_FRIEND);
+            ps.setLong(1, friend.getId());
+            ps.setString(2, friend.getName());
+            ps.setString(3, friend.getLastName());
+            ps.setLong(4, friend.getBasicInfoId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -29,7 +52,7 @@ public class FriendsDAOImpl extends AbstractDAO implements IFriendsDAO {
         ResultSet rs = null;
         try {
             connection = getCon();
-            ps = connection.prepareStatement(GET_USER_BY_ID);
+            ps = connection.prepareStatement(GET_FRIEND_BY_ID);
             ps.setLong(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {

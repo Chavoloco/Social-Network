@@ -4,6 +4,7 @@ public class Friends {
     private long id;
     private String name;
     private String lastName;
+    private long basicInfoId;
 
     public Friends() {
     }
@@ -12,6 +13,13 @@ public class Friends {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
+    }
+
+    public Friends(long id, String name, String lastName, long basicInfoId) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.basicInfoId = basicInfoId;
     }
 
     public long getId() {
@@ -36,5 +44,13 @@ public class Friends {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public long getBasicInfoId() {
+        return basicInfoId;
+    }
+
+    public void setBasicInfoId(long basicInfoId) {
+        this.basicInfoId = basicInfoId;
     }
 }
