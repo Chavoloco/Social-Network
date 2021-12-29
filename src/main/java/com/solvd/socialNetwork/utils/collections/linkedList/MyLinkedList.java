@@ -1,6 +1,4 @@
-package com.solvd.socialNetwork.utils.collections;
-
-import java.util.Collection;
+package com.solvd.socialNetwork.utils.collections.linkedList;
 
 public class MyLinkedList<T> {
     private MyNode<T> head;

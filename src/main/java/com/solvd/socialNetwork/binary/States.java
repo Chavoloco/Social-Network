@@ -1,33 +1,14 @@
 package com.solvd.socialNetwork.binary;
 
-public class States {
-    private long id;
-    private String name;
+public class States extends Location{
     private long cityId;
 
     public States() {
     }
 
     public States(long id, String name, long cityId) {
-        this.id = id;
-        this.name = name;
+        super(id, name);
         this.cityId = cityId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public long getCityId() {

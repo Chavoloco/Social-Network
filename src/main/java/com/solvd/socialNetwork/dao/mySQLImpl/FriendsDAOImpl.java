@@ -1,10 +1,8 @@
 package com.solvd.socialNetwork.dao.mySQLImpl;
 
 import com.solvd.socialNetwork.binary.Friends;
-import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.dao.interfaces.AbstractDAO;
 import com.solvd.socialNetwork.dao.interfaces.IFriendsDAO;
-import com.solvd.socialNetwork.utils.collections.MyLinkedList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class FriendsDAOImpl extends AbstractDAO implements IFriendsDAO {
-    private final static String GET_FRIEND_BY_ID = "SELECT * FROM user WHERE id=?";
+    private final static String GET_FRIEND_BY_ID = "SELECT * FROM friends WHERE id=?";
     private final static String INSERT_FRIEND = "INSERT INTO friends(name, last_name, basic_info_id) VALUES(?,?,?)";
 
     @Override
@@ -78,12 +76,12 @@ public class FriendsDAOImpl extends AbstractDAO implements IFriendsDAO {
     }
 
     @Override
-    public void delete(User u) {
+    public void delete(Friends u) {
         throw new UnsupportedOperationException("Operation is not supported");
     }
 
     @Override
-    public List<User> getAll() {
+    public List<Friends> getAll() {
         throw new UnsupportedOperationException("Operation is not supported");
     }
 

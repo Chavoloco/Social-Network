@@ -2,16 +2,16 @@ package com.solvd.socialNetwork.binary;
 
 public class BasicInfo {
     private long id;
-    private long countriesId;
+    private long locationId;
     private long schoolId;
     private long jobsId;
 
     public BasicInfo() {
     }
 
-    public BasicInfo(long id, long countriesId, long schoolId, long jobsId) {
+    public BasicInfo(long id, long locationId, long schoolId, long jobsId) {
         this.id = id;
-        this.countriesId = countriesId;
+        this.locationId = locationId;
         this.schoolId = schoolId;
         this.jobsId = jobsId;
     }
@@ -24,12 +24,12 @@ public class BasicInfo {
         this.id = id;
     }
 
-    public long getCountriesId() {
-        return countriesId;
+    public long getLocationId() {
+        return locationId;
     }
 
-    public void setCountriesId(long countriesId) {
-        this.countriesId = countriesId;
+    public void setLocationId(long countriesId) {
+        this.locationId = countriesId;
     }
 
     public long getSchoolId() {

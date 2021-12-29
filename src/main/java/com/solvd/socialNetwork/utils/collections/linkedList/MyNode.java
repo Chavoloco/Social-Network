@@ -1,4 +1,4 @@
-package com.solvd.socialNetwork.utils.collections;
+package com.solvd.socialNetwork.utils.collections.linkedList;
 
 public class MyNode<T> {
     MyNode<T> next;

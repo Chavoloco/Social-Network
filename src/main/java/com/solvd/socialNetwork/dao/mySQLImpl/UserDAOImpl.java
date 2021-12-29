@@ -5,12 +5,10 @@ import com.solvd.socialNetwork.binary.Profile;
 import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.dao.interfaces.AbstractDAO;
 import com.solvd.socialNetwork.dao.interfaces.IUserDAO;
-import com.solvd.socialNetwork.utils.collections.MyLinkedList;
+import com.solvd.socialNetwork.utils.collections.linkedList.MyLinkedList;
 
-import javax.naming.OperationNotSupportedException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class UserDAOImpl extends AbstractDAO implements IUserDAO {
@@ -39,7 +37,6 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
         try {
             connection = getCon();
             ps = connection.prepareStatement(GET_USER_ALL);
-            //ps.setArray(1, (Array) userList);
             rs = ps.executeQuery();
             while (rs.next()) {
                 user = new User();
@@ -165,7 +162,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
     }
 
     @Override
-    public MyLinkedList<Profile> getProfileByUserId(long id) {
+    public MyLinkedList<Profile> getProfileByUserId(long userId) {
         MyLinkedList<Profile> profileList = new MyLinkedList<>();
         User user = null;
         Profile profile = null;
@@ -175,7 +172,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
         try {
             connection = getCon();
             ps = connection.prepareStatement(INNER_JOIN_BY_ID);
-            ps.setLong(1, id);
+            ps.setLong(1, userId);
             rs = ps.executeQuery();
             if (rs.next()) {
                 user = new User();
@@ -207,7 +204,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
     }
 
     @Override
-    public MyLinkedList<Profile> getAllProfileByUser() {
+    public MyLinkedList<Profile> getAllRelatedProfile() {
         MyLinkedList<Profile> profileList = new MyLinkedList<>();
         User user = null;
         Profile profile = null;
@@ -243,7 +240,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
     }
 
     @Override
-    public MyLinkedList<Friends> getAllFriendsByUser() {
+    public MyLinkedList<Friends> getAllRelatedFriends() {
         throw new UnsupportedOperationException("Operation not supported");
     }
 

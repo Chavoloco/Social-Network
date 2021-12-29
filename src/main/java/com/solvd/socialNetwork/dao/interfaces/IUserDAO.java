@@ -3,7 +3,7 @@ package com.solvd.socialNetwork.dao.interfaces;
 import com.solvd.socialNetwork.binary.Friends;
 import com.solvd.socialNetwork.binary.Profile;
 import com.solvd.socialNetwork.binary.User;
-import com.solvd.socialNetwork.utils.collections.MyLinkedList;
+import com.solvd.socialNetwork.utils.collections.linkedList.MyLinkedList;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ public interface IUserDAO extends IEntityDAO<User> {
 
     MyLinkedList<Profile> getProfileByUserId(long id);
 
-    MyLinkedList<Profile> getAllProfileByUser();
+    MyLinkedList<Profile> getAllRelatedProfile();
 
     MyLinkedList<Friends> getFriendsByUserId(long id);
 
-    MyLinkedList<Friends> getAllFriendsByUser();
+    MyLinkedList<Friends> getAllRelatedFriends();
 
     void updateUserName(Integer id, String userName);
 
