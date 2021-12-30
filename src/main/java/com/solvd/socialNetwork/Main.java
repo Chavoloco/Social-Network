@@ -1,5 +1,7 @@
 package com.solvd.socialNetwork;
 
+import com.mysql.cj.jdbc.ConnectionImpl;
+import com.mysql.cj.jdbc.JdbcConnection;
 import com.solvd.socialNetwork.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,15 +22,6 @@ public class Main {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                }).thenAcceptAsync((a)->{
-                    log.info(a);
-                    Connection conn = null;
-                    try {
-                        conn = cp.getConnection();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    cp.returnConnection(conn);
                 });
 
         CompletableFuture<Void> thread2 = CompletableFuture
