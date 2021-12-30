@@ -17,7 +17,7 @@ public class DomParserDemo {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            System.out.println("Root elemnet: " + doc.getDocumentElement().getNodeName());
+            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("user");
             System.out.println("----------------------------");
 
