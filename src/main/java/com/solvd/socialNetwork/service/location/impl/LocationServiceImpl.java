@@ -52,4 +52,49 @@ public class LocationServiceImpl implements LocationService {
     public String getCompleteLocation() {
         return locationDAO.getCompleteLocation();
     }
+
+    @Override
+    public void saveCity(Cities cities) {
+        locationDAO.save(cities);
+    }
+
+    @Override
+    public Cities getCityById(long id) {
+        return (Cities) locationDAO.getById(id);
+    }
+
+    @Override
+    public void deleteCity(Cities cities) {
+        locationDAO.delete(cities);
+    }
+
+    @Override
+    public void saveCountry(Countries countries) {
+        locationDAO.save(countries);
+    }
+
+    @Override
+    public Countries getCountryById(long id) {
+        return (Countries) locationDAO.getById(id);
+    }
+
+    @Override
+    public void deleteCountry(Countries countries) {
+        locationDAO.delete(countries);
+    }
+
+    @Override
+    public void saveState(States states) {
+        locationDAO.save(states);
+    }
+
+    @Override
+    public States getStateById(long id) {
+        return (States) locationDAO.getById(id);
+    }
+
+    @Override
+    public void deleteState(States states) {
+        locationDAO.delete(states);
+    }
 }
