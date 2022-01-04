@@ -57,4 +57,15 @@ public class User {
     public void setFriendId(long friendId) {
         this.friendId = friendId;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", profileId=" + profileId +
+                ", friendId=" + friendId +
+                '}';
+    }
 }

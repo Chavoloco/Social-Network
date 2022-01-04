@@ -1,18 +1,24 @@
 package com.solvd.socialNetwork;
 
-import com.mysql.cj.jdbc.ConnectionImpl;
-import com.mysql.cj.jdbc.JdbcConnection;
+import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.utils.ConnectionPool;
+import com.solvd.socialNetwork.utils.parserDemo.DomParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xml.sax.SAXException;
 
-import java.sql.Connection;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
     private static final Logger log = LogManager.getLogger(Main.class);
-    public static void main(String[] args) {
+
+    public static void main(String[] args)  {
+
+
         ConnectionPool cp = ConnectionPool.getInstance();
 
         CompletableFuture<Void> thread1 = CompletableFuture
@@ -51,7 +57,7 @@ public class Main {
                     }
                 });
 
-        while (!thread1.isDone()){
+        while (!thread1.isDone()) {
 
         }
 

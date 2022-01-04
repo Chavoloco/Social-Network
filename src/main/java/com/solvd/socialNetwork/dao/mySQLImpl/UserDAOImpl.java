@@ -21,6 +21,39 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
             "WHERE u.id=?";
     private final static String INNER_JOIN_ALL = "SELECT u.id, p.profile_details FROM user u\n" +
             "INNER JOIN profile p ON u.profile_id = p.id\n";
+    private final static String INSERT_USER = "INSERT INTO user(userName, password, profileId, friendId) VALUES(?,?,?,?)";
+
+    @Override
+    public void saveByXmlFile(List<User> userList) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INSERT_USER);
+
+            for (User user :  userList) {
+                ps.setLong(1, user.getId());
+                ps.setString(2, user.getUserName());
+                ps.setString(3, user.getPassword());
+                ps.setLong(4, user.getProfileId());
+                ps.setLong(5, user.getFriendId());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void save(User user) {

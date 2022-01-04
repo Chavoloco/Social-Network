@@ -22,4 +22,6 @@ public interface IUserDAO extends IEntityDAO<User> {
     void updateUserName(Integer id, String userName);
 
     void updatePassword(Integer id, String userName);
+
+    void saveByXmlFile(List<User> user);
 }
