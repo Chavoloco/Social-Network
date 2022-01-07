@@ -10,4 +10,6 @@ public interface IBasicInfoDAO extends IEntityDAO<BasicInfo>{
     MyLinkedList<School> getRelatedSchoolByFriendId(long id);
 
     MyLinkedList<Jobs> getRelatedJobByFriendId(long id);
+
+    void saveBasicInfoByJsonFile(BasicInfo basicInfo);
 }

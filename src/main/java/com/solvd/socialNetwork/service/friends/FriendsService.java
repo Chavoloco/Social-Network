@@ -2,6 +2,7 @@ package com.solvd.socialNetwork.service.friends;
 
 import com.solvd.socialNetwork.binary.Friends;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface FriendsService {
@@ -17,4 +18,10 @@ public interface FriendsService {
     void updateNameById(long id, String name);
 
     void updateLastNameById(long id, String lastName);
+
+    void saveFriendsByJsonFile() throws IOException;
+
+    void saveFriendsListByJsonFile() throws IOException;
+
+    void writeJsonFromDBInfo() throws IOException;
 }

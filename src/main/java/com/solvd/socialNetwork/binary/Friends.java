@@ -1,9 +1,15 @@
 package com.solvd.socialNetwork.binary;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Friends {
+    @JsonProperty("id")
     private long id;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("lname")
     private String lastName;
+    @JsonProperty("basicInfoId")
     private long basicInfoId;
 
     public Friends() {

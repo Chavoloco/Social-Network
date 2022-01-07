@@ -5,6 +5,7 @@ import com.solvd.socialNetwork.binary.Profile;
 import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.dao.interfaces.AbstractDAO;
 import com.solvd.socialNetwork.dao.interfaces.IUserDAO;
+import com.solvd.socialNetwork.utils.JSONParser.jackson.JacksonUserParser;
 import com.solvd.socialNetwork.utils.collections.linkedList.MyLinkedList;
 
 import java.sql.*;
@@ -24,7 +25,12 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
     private final static String INSERT_USER = "INSERT INTO user(userName, password, profileId, friendId) VALUES(?,?,?,?)";
 
     @Override
-    public void saveByXmlFile(List<User> userList) {
+    public void saveByXmlFile(User user) {
+        throw new UnsupportedOperationException("Operation not supported");
+    }
+
+    @Override
+    public void saveByJsonFile(List<User> userList) {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -33,6 +39,67 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
             ps = connection.prepareStatement(INSERT_USER);
 
             for (User user :  userList) {
+                ps.setLong(1, user.getId());
+                ps.setString(2, user.getUserName());
+                ps.setString(3, user.getPassword());
+                ps.setLong(4, user.getProfileId());
+                ps.setLong(5, user.getFriendId());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void saveByJsonFile(User user) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INSERT_USER);
+            ps.setLong(1, user.getId());
+            ps.setString(2, user.getUserName());
+            ps.setString(3, user.getPassword());
+            ps.setLong(4, user.getProfileId());
+            ps.setLong(5, user.getFriendId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void saveByXmlFile(List<User> userList) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INSERT_USER);
+
+            for (User user : userList) {
                 ps.setLong(1, user.getId());
                 ps.setString(2, user.getUserName());
                 ps.setString(3, user.getPassword());

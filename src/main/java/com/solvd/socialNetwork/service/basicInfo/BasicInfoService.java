@@ -6,6 +6,7 @@ import com.solvd.socialNetwork.binary.Location;
 import com.solvd.socialNetwork.binary.School;
 import com.solvd.socialNetwork.utils.collections.linkedList.MyLinkedList;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BasicInfoService {
@@ -23,4 +24,8 @@ public interface BasicInfoService {
     MyLinkedList<School> getRelatedSchoolByFriendId(long id);
 
     MyLinkedList<Jobs> getRelatedJobByFriendId(long id);
+
+    void saveBasicInfoByJsonFile() throws IOException;
+
+    void writeJsonFromDBInfo(long id) throws IOException;
 }

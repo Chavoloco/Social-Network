@@ -1,0 +1,21 @@
+[ {
+  "id" : 1,
+  "name" : "Charly",
+  "lname" : "Brown",
+  "basicInfoId" : 1
+}, {
+  "id" : 2,
+  "name" : "Hanna",
+  "lname" : "Montana",
+  "basicInfoId" : 2
+}, {
+  "id" : 3,
+  "name" : "Vitálik",
+  "lname" : "Buterin",
+  "basicInfoId" : 3
+}, {
+  "id" : 4,
+  "name" : "Barak",
+  "lname" : "Obama",
+  "basicInfoId" : 4
+} ]

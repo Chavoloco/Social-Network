@@ -5,13 +5,44 @@ import com.solvd.socialNetwork.binary.Profile;
 import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.dao.mySQLImpl.UserDAOImpl;
 import com.solvd.socialNetwork.service.user.UserService;
+import com.solvd.socialNetwork.utils.JSONParser.jackson.JacksonUserParser;
 import com.solvd.socialNetwork.utils.collections.linkedList.MyLinkedList;
+import com.solvd.socialNetwork.utils.parserDemo.DomParser;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
     UserDAOImpl userDAO;
 
+    @Override
+    public void writeJsonFromDBInfo() throws IOException {
+        JacksonUserParser jacksonUserParser = new JacksonUserParser();
+        List<User> userList = userDAO.getAll();
+        jacksonUserParser.writeJSONFromList(userList);
+    }
+
+    @Override
+    public void saveByXmlFile() throws IOException, ParserConfigurationException, SAXException {
+        List<User> userList = DomParser.setParseUser();
+        userDAO.saveByXmlFile(userList);
+    }
+
+    @Override
+    public void saveByJsonFile() throws IOException {
+        JacksonUserParser jacksonUserParser = new JacksonUserParser();
+        User user = jacksonUserParser.readJSON();
+        userDAO.saveByJsonFile(user);
+    }
+
+    @Override
+    public void saveByJsonFileList() throws IOException {
+        JacksonUserParser jacksonUserParser = new JacksonUserParser();
+        List<User> userList = jacksonUserParser.readJSONFromList();
+        userDAO.saveByJsonFile(userList);
+    }
 
     @Override
     public List<User> loadByUserName(String username) {

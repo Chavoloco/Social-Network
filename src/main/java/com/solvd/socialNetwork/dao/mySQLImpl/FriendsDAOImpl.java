@@ -1,6 +1,7 @@
 package com.solvd.socialNetwork.dao.mySQLImpl;
 
 import com.solvd.socialNetwork.binary.Friends;
+import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.dao.interfaces.AbstractDAO;
 import com.solvd.socialNetwork.dao.interfaces.IFriendsDAO;
 
@@ -13,6 +14,65 @@ import java.util.List;
 public class FriendsDAOImpl extends AbstractDAO implements IFriendsDAO {
     private final static String GET_FRIEND_BY_ID = "SELECT * FROM friends WHERE id=?";
     private final static String INSERT_FRIEND = "INSERT INTO friends(name, last_name, basic_info_id) VALUES(?,?,?)";
+
+    @Override
+    public void saveFriendsByJsonFile(List<Friends> friendsList) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INSERT_FRIEND);
+
+            for (Friends friends : friendsList) {
+                ps.setLong(1, friends.getId());
+                ps.setString(2, friends.getName());
+                ps.setString(3, friends.getLastName());
+                ps.setLong(4, friends.getBasicInfoId());
+                ps.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void saveFriendsByJsonFile(Friends friends) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            connection = getCon();
+            ps = connection.prepareStatement(INSERT_FRIEND);
+            ps.setLong(1, friends.getId());
+            ps.setString(2, friends.getName());
+            ps.setString(3, friends.getLastName());
+            ps.setLong(4, friends.getBasicInfoId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            realiseConnection(connection);
+            try {
+                if (rs != null && ps != null) {
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void save(Friends friend) {
