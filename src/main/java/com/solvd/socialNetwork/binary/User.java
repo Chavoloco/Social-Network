@@ -1,6 +1,9 @@
 package com.solvd.socialNetwork.binary;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.sql.Date;
 
 public class User {
     @JsonProperty("id")
@@ -9,6 +12,9 @@ public class User {
     private String userName;
     @JsonProperty("password")
     private String password;
+    @JsonProperty("last connection")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/mm/yyyy HH:mm:ss")
+    private Date lastConnection;
     @JsonProperty("profileId")
     private long profileId;
     @JsonProperty("friendId")
@@ -65,12 +71,21 @@ public class User {
         this.friendId = friendId;
     }
 
+    public Date getLastConnection() {
+        return lastConnection;
+    }
+
+    public void setLastConnection(Date lastConnection) {
+        this.lastConnection = lastConnection;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", last connection='" + lastConnection + '\'' +
                 ", profileId=" + profileId +
                 ", friendId=" + friendId +
                 '}';

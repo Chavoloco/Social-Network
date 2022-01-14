@@ -6,7 +6,9 @@ import com.solvd.socialNetwork.binary.Location;
 import com.solvd.socialNetwork.binary.States;
 import com.solvd.socialNetwork.dao.mySQLImpl.LocationDAOImpl;
 import com.solvd.socialNetwork.service.location.LocationService;
+import com.solvd.socialNetwork.utils.jaxbparser.JaxbLocationParser;
 
+import javax.xml.bind.JAXBException;
 import java.util.List;
 
 public class LocationServiceImpl implements LocationService {
@@ -55,46 +57,58 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void saveCity(Cities cities) {
-        locationDAO.save(cities);
+        locationDAO.saveCity(cities);
     }
 
     @Override
     public Cities getCityById(long id) {
-        return (Cities) locationDAO.getById(id);
+        return (Cities) locationDAO.getCityById(id);
     }
 
     @Override
     public void deleteCity(Cities cities) {
-        locationDAO.delete(cities);
+        locationDAO.deleteCity(cities);
     }
 
     @Override
     public void saveCountry(Countries countries) {
-        locationDAO.save(countries);
+        locationDAO.saveCountry(countries);
     }
 
     @Override
     public Countries getCountryById(long id) {
-        return (Countries) locationDAO.getById(id);
+        return (Countries) locationDAO.getCountryById(id);
     }
 
     @Override
     public void deleteCountry(Countries countries) {
-        locationDAO.delete(countries);
+        locationDAO.deleteCountry(countries);
     }
 
     @Override
     public void saveState(States states) {
-        locationDAO.save(states);
+        locationDAO.saveState(states);
     }
 
     @Override
     public States getStateById(long id) {
-        return (States) locationDAO.getById(id);
+        return (States) locationDAO.getStateById(id);
     }
 
     @Override
     public void deleteState(States states) {
-        locationDAO.delete(states);
+        locationDAO.deleteState(states);
+    }
+
+    @Override
+    public void saveFromXml() throws JAXBException {
+        JaxbLocationParser jaxb = null;
+        locationDAO.saveFromJaxb(jaxb.readXmlLocationFile());
+    }
+
+    @Override
+    public void writeXmlFromDb() throws JAXBException {
+        JaxbLocationParser jaxb = null;
+        jaxb.writeAXmlLocationFile(locationDAO.readLocationsFromDb());
     }
 }

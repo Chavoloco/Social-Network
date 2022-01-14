@@ -5,6 +5,7 @@ import com.solvd.socialNetwork.binary.Countries;
 import com.solvd.socialNetwork.binary.Location;
 import com.solvd.socialNetwork.binary.States;
 
+import javax.xml.bind.JAXBException;
 import java.util.List;
 
 public interface LocationService {
@@ -42,5 +43,9 @@ public interface LocationService {
     States getStateById(long Id);
 
     void deleteState(States states);
+
+    void saveFromXml() throws JAXBException;
+
+    void writeXmlFromDb() throws JAXBException;
 
 }

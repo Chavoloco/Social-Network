@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<location>
+    <city>
+        <id>1</id>
+        <name>Villa Carlos Paz</name>
+    </city>
+    <country>
+        <id>1</id>
+        <name>Argentina</name>
+    </country>
+    <id>1</id>
+    <state>
+        <id>1</id>
+        <name>Cordoba</name>
+    </state>
+    <timeZone>2022-01-14T01:25:24.873-03:00</timeZone>
+</location>

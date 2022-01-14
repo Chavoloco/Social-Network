@@ -10,6 +10,7 @@ import com.solvd.socialNetwork.utils.collections.linkedList.MyLinkedList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserDAOImpl extends AbstractDAO implements IUserDAO {
@@ -23,6 +24,16 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
     private final static String INNER_JOIN_ALL = "SELECT u.id, p.profile_details FROM user u\n" +
             "INNER JOIN profile p ON u.profile_id = p.id\n";
     private final static String INSERT_USER = "INSERT INTO user(userName, password, profileId, friendId) VALUES(?,?,?,?)";
+
+    @Override
+    public Date getLastConnection() {
+        throw new UnsupportedOperationException("Operation is not supported");
+    }
+
+    @Override
+    public void setLastConnection() {
+        throw new UnsupportedOperationException("Operation is not supported");
+    }
 
     @Override
     public void saveByXmlFile(User user) {
@@ -42,8 +53,9 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
                 ps.setLong(1, user.getId());
                 ps.setString(2, user.getUserName());
                 ps.setString(3, user.getPassword());
-                ps.setLong(4, user.getProfileId());
-                ps.setLong(5, user.getFriendId());
+                ps.setDate(4, user.getLastConnection());
+                ps.setLong(5, user.getProfileId());
+                ps.setLong(6, user.getFriendId());
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
@@ -72,6 +84,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
             ps.setLong(1, user.getId());
             ps.setString(2, user.getUserName());
             ps.setString(3, user.getPassword());
+            ps.setDate(4, user.getLastConnection());
             ps.setLong(4, user.getProfileId());
             ps.setLong(5, user.getFriendId());
             ps.executeUpdate();
@@ -103,6 +116,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
                 ps.setLong(1, user.getId());
                 ps.setString(2, user.getUserName());
                 ps.setString(3, user.getPassword());
+                ps.setDate(4, user.getLastConnection());
                 ps.setLong(4, user.getProfileId());
                 ps.setLong(5, user.getFriendId());
                 ps.executeUpdate();
@@ -143,6 +157,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
                 user.setId(rs.getLong("id"));
                 user.setUserName(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setLastConnection(rs.getDate("lastConnection"));
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -178,6 +193,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
                 user.setId(rs.getLong("id"));
                 user.setUserName(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setLastConnection(rs.getDate("lastConnection"));
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -239,6 +255,7 @@ public class UserDAOImpl extends AbstractDAO implements IUserDAO {
                 user.setId(rs.getLong("id"));
                 user.setUserName(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
+                user.setLastConnection(rs.getDate("lastConnection"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

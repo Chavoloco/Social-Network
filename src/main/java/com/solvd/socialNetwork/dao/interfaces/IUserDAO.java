@@ -5,6 +5,7 @@ import com.solvd.socialNetwork.binary.Profile;
 import com.solvd.socialNetwork.binary.User;
 import com.solvd.socialNetwork.utils.collections.linkedList.MyLinkedList;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IUserDAO extends IEntityDAO<User> {
@@ -18,6 +19,10 @@ public interface IUserDAO extends IEntityDAO<User> {
     MyLinkedList<Friends> getFriendsByUserId(long id);
 
     MyLinkedList<Friends> getAllRelatedFriends();
+
+    Date getLastConnection();
+
+    void setLastConnection();
 
     void updateUserName(Integer id, String userName);
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name='location'>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name='city' type='CityType' minOccurs='0' maxOccurs='unbounded'/>
+                <xs:element name='country' type='CountryType' minOccurs='0' maxOccurs='unbounded'/>
+                <xs:element name='state' type='StateType' minOccurs='0' maxOccurs='unbounded'/>
+            </xs:sequence>
+            <xs:attribute name='id' type='xs:positiveInteger'/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="LocationType">
+        <xs:sequence>
+            <xs:element name="city" type="CityType"/>
+            <xs:element name="country" type="CountryType"/>
+            <xs:element name="state" type="StateType"/>
+            <xs:element name="timeZone" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CityType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:positiveInteger"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="StateType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:positiveInteger"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+
+    </xs:complexType>
+    <xs:complexType name="CountryType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:positiveInteger"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

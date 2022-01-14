@@ -2,15 +2,12 @@ package com.solvd.socialNetwork.utils.JSONParser.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solvd.socialNetwork.binary.BasicInfo;
-import com.solvd.socialNetwork.binary.Friends;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 public class JacksonBasicInfoParser {
 

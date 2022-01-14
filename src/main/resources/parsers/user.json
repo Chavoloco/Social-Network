@@ -2,24 +2,28 @@
   "id" : 1,
   "username" : "userName1",
   "password" : "password",
+  "last connection" : null,
   "profileId" : 1,
   "friendId" : 1
 }, {
   "id" : 2,
   "username" : "userName2",
   "password" : "password",
+  "last connection" : null,
   "profileId" : 2,
   "friendId" : 2
 }, {
   "id" : 3,
   "username" : "userName3",
   "password" : "password",
+  "last connection" : null,
   "profileId" : 3,
   "friendId" : 3
 }, {
   "id" : 0,
   "username" : null,
   "password" : null,
+  "last connection" : null,
   "profileId" : 0,
   "friendId" : 0
 } ]

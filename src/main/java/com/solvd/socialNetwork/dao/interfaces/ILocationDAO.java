@@ -1,9 +1,6 @@
 package com.solvd.socialNetwork.dao.interfaces;
 
-import com.solvd.socialNetwork.binary.Cities;
-import com.solvd.socialNetwork.binary.Countries;
-import com.solvd.socialNetwork.binary.Location;
-import com.solvd.socialNetwork.binary.States;
+import com.solvd.socialNetwork.binary.*;
 
 import java.util.List;
 
@@ -35,4 +32,7 @@ public interface ILocationDAO extends IEntityDAO<Location> {
 
     void deleteState(States states);
 
+    void saveFromJaxb(LocationList locations);
+
+    LocationList readLocationsFromDb();
 }

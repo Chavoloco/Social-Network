@@ -44,7 +44,7 @@ public class ConnectionPool {
         Connection conn = null;
         if (connections.isEmpty()) {
                 try {
-                    conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/social_network" + "user=root&password=admin");
+                    conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/social_network?" + "user=root&password=admin");
                     connections.add(conn);
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -64,7 +64,7 @@ public class ConnectionPool {
             throw new RuntimeException("");
         } else {
             contAmount++;
-            return conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/social_network" + "user=root&password=admin");
+            return conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/social_network?" + "user=root&password=admin");
         }
     }
 
