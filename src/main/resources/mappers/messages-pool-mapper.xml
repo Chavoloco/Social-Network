@@ -1,0 +1,15 @@
+<mapper nameSpace="com.solvd.socialNetwork.dao.interfaces.IMessagesPoolDAO">
+    <INSERT id="save" useGenerateKeys="true" keyProperty="id">
+        INSERT INTO messages_pool (user_id, message_id)
+        VALUES(#{userId}, #{messageId})
+    </INSERT>
+    <SELECT id="getByUserId" resultmap="MessagesResultMap">
+        SELECT u.id, u.user_name, m.id, m.msg_content, m.date_time
+        FROM user u LEFT JOIN messages m
+        ON u.id = m.id WHERE u.id=#{i}
+    </SELECT>
+    <ResultMap id="MessagesResultMap" type="com.solvd.socialNetwork.binary.MessagesPool" autoMapping="false">
+        <collection property="Messages" resultMap="com.solvd.socialNetwork.dao.interfaces.IMessagesDAO.MessagesResultMap" />
+        <collection property="User" resultMap="com.solvd.socialNetwork.dao.interfaces.IUserDAO.UserResultMap" />
+    </ResultMap>
+</mapper>

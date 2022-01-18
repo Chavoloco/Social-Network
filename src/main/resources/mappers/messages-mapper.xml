@@ -1,0 +1,10 @@
+<mapper nameSpace="com.solvd.socialNetwork.dao.interfaces.IMessagesDAO">
+    <SELECT id="getById" resultMap="MessagesResultMap">
+        SELECT id, msg_content, date_time FROM messages WHERE id=#{id}
+    </SELECT>
+    <resultMap id="MessagesResultMap" type="com.solvd.socialNetwork.binary.Messages" autoMaping="false">
+        <id column="id" property="id" />
+        <result column="msg_content" propety="msgContent" />
+        <result column="date_time" propety="dateTime" />
+    </resultMap>
+</mapper>

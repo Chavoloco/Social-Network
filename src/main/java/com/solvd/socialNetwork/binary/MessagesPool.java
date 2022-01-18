@@ -1,30 +1,32 @@
 package com.solvd.socialNetwork.binary;
 
+import java.util.List;
+
 public class MessagesPool {
-    private long messagesId;
-    private  long user_id;
+    private List<Messages> messages;
+    private List<User> users;
 
     public MessagesPool() {
     }
 
-    public MessagesPool(long messagesId, long user_id) {
-        this.messagesId = messagesId;
-        this.user_id = user_id;
+    public MessagesPool(List<Messages> messages, List<User> users) {
+        this.messages = messages;
+        this.users = users;
     }
 
-    public long getMessagesId() {
-        return messagesId;
+    public List<Messages> getMessages() {
+        return messages;
     }
 
-    public void setMessagesId(long messagesId) {
-        this.messagesId = messagesId;
+    public void setMessages(List<Messages> messages) {
+        this.messages = messages;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
